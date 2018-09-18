@@ -12,7 +12,9 @@ import i18n from "../../../i18n";
 import { maybe } from "../../../misc";
 import { OrderEvents, OrderStatus } from "../../../types/globalTypes";
 import OrderAddressEditDialog from "../OrderAddressEditDialog";
-import OrderCancelDialog from "../OrderCancelDialog";
+import OrderCancelDialog, {
+  FormData as OrderCancelFormData
+} from "../OrderCancelDialog";
 import OrderCustomer from "../OrderCustomer";
 import OrderCustomerEditDialog from "../OrderCustomerEditDialog";
 import OrderFulfillment from "../OrderFulfillment";
@@ -152,7 +154,7 @@ interface OrderDetailsPageProps {
   onPaymentCapture(data: OrderPaymentFormData);
   onPaymentRefund(data: OrderPaymentFormData);
   onPaymentRelease?();
-  onOrderCancel?();
+  onOrderCancel?(data: OrderCancelFormData);
 }
 interface OrderDetailsPageState {
   openedBillingAddressEditDialog: boolean;
@@ -379,7 +381,7 @@ class OrderDetailsPageComponent extends React.Component<
                   number={order.number}
                   open={openedOrderCancelDialog}
                   onClose={this.toggleOrderCancelDialog}
-                  onConfirm={onOrderCancel}
+                  onSubmit={onOrderCancel}
                 />
                 <OrderPaymentReleaseDialog
                   open={openedPaymentReleaseDialog}
