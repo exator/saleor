@@ -154,7 +154,7 @@ interface OrderDetailsPageProps {
   onPaymentCapture(data: OrderPaymentFormData);
   onPaymentRefund(data: OrderPaymentFormData);
   onPaymentRelease?();
-  onOrderCancel?(data: OrderCancelFormData);
+  onOrderCancel(data: OrderCancelFormData);
 }
 interface OrderDetailsPageState {
   openedBillingAddressEditDialog: boolean;
