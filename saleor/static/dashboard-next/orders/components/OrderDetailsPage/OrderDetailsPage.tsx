@@ -138,7 +138,6 @@ interface OrderDetailsPageProps {
   }>;
   variantsLoading?: boolean;
   fetchUsers?(value: string);
-  fetchShippingMethods?(value: string);
   fetchVariants?(value: string);
   onBack();
   onCreate?();
@@ -245,7 +244,6 @@ class OrderDetailsPageComponent extends React.Component<
       users,
       variants,
       variantsLoading,
-      fetchShippingMethods,
       fetchUsers,
       fetchVariants,
       onBack,
@@ -356,10 +354,7 @@ class OrderDetailsPageComponent extends React.Component<
               <>
                 <Form
                   initial={{
-                    shippingMethod: {
-                      label: order.shippingMethodName,
-                      value: order.shippingMethod && order.shippingMethod.id
-                    }
+                    shippingMethod: maybe(() => order.shippingMethod.id, "")
                   }}
                 >
                   {({ change, data }) => (
@@ -367,7 +362,6 @@ class OrderDetailsPageComponent extends React.Component<
                       open={openedShippingMethodEditDialog}
                       shippingMethod={data.shippingMethod}
                       shippingMethods={shippingMethods}
-                      fetchShippingMethods={fetchShippingMethods}
                       onChange={change}
                       onClose={this.toggleShippingMethodEditDialog}
                     />

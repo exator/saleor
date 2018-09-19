@@ -3,7 +3,6 @@ import gql from "graphql-tag";
 import { TypedQuery } from "../queries";
 import { OrderDetails, OrderDetailsVariables } from "./types/OrderDetails";
 import { OrderList, OrderListVariables } from "./types/OrderList";
-import { OrderShippingMethods } from "./types/OrderShippingMethods";
 import {
   OrderVariantSearch,
   OrderVariantSearchVariables
@@ -166,6 +165,10 @@ export const fragmentOrderDetails = gql`
       id
       email
     }
+    availableShippingMethods {
+      id
+      name
+    }
   }
 `;
 
@@ -181,25 +184,6 @@ export const TypedOrderDetailsQuery = TypedQuery<
   OrderDetails,
   OrderDetailsVariables
 >(orderDetailsQuery);
-
-export const orderShippingMethodsQuery = gql`
-  query OrderShippingMethods {
-    shippingZones {
-      edges {
-        node {
-          shippingMethods {
-            id
-            name
-          }
-        }
-      }
-    }
-  }
-`;
-export const TypedOrderShippingMethodsQuery = TypedQuery<
-  OrderShippingMethods,
-  {}
->(orderShippingMethodsQuery);
 
 export const orderVariantSearchQuery = gql`
   query OrderVariantSearch($search: String!) {
